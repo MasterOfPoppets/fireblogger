@@ -2,8 +2,9 @@
   "name": "fireblogger",
   "version": "0.0.1",
   "description": "Fireblogger - Angular Firebase blogging tool",
-  "main": "lib/index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "npm server.js"
     "test": "mocha"
   },
   "repository": {
