@@ -1,0 +1,26 @@
+{
+  "name": "fireblogger",
+  "version": "0.0.1",
+  "description": "Fireblogger - Angular Firebase blogging tool",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MasterOfPoppets/fireblogger.git"
+  },
+  "keywords": [
+    "Fireblogger",
+    "Angular",
+    "Firebase",
+    "Blogging"
+  ],
+  "author": "Gareth Hughes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MasterOfPoppets/fireblogger/issues"
+  },
+  "homepage": "https://github.com/MasterOfPoppets/fireblogger",
+  "private": "true"
+}
