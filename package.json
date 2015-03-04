@@ -2,10 +2,9 @@
   "name": "fireblogger",
   "version": "0.0.1",
   "description": "Fireblogger - Angular Firebase blogging tool",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "npm server.js"
-    "test": "mocha"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,9 @@
     "url": "https://github.com/MasterOfPoppets/fireblogger/issues"
   },
   "homepage": "https://github.com/MasterOfPoppets/fireblogger",
-  "private": "true"
+  "dependencies": {
+    "express": "~4.12.0",
+    "jade": "~1.9.2",
+    "stylus": "0.42.3"
+  }
 }
