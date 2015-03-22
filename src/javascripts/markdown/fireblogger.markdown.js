@@ -6,9 +6,16 @@
 		.directive('markdown', function () {
 			return {
 				restrict: 'E',
+				scope: {
+					markdownContent: "="
+				},
 				link: function (scope, elem, attrs) {
-					console.log(attrs['markdownContent']);
-					var parsedMarkdown = marked(elem.html())
+					var parsedMarkdown;
+					if (scope.markdownContent) {
+						parsedMarkdown = marked(scope.markdownContent);
+					} else {
+						parsedMarkdown = marked(elem.html())
+					}
 					elem.html(parsedMarkdown)
 				}
 			}
