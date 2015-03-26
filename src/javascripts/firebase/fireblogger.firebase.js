@@ -3,7 +3,7 @@
 
 	angular.module('fireblogger.firebase', [])
 
-		.value('fb', new Firebase('https://fiery-heat-3490.firebaseio.com/'))
+		.value('fb', new Firebase('https://fiery-heat-3490.firebaseio.com/').child('blogEntries'))
 
 		.factory('FirebaseFactory', ['fb', function (fb) {
 			var model = {
@@ -11,10 +11,13 @@
 			}
 
 			return {
-				getPosts: model.posts,
+				fbModel: model,
 
-				test: function (callback) {
-					fb.child('blogEntries').on('value', callback);
+				loadAllPosts: function () {
+					fb.on('value', function (snapshot){
+						model.posts.unshift(snapshot.val());
+						console.log(model.posts);
+					});
 				}
 			}
 		}])

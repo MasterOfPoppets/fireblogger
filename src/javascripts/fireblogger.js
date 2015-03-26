@@ -5,15 +5,17 @@
 
 		.controller('FirebloggerCtrl', function ($scope, $timeout, FirebaseFactory) {
 			$scope.model = {
-				test: 'Hello world'
+				test: 'Hello world',
+				fbModel: FirebaseFactory.fbModel
 			};
-			console.log('test')
-			FirebaseFactory.test(function (snapshot) {
-				$timeout(function () {
-					console.log(snapshot.val()['new-professional-site']);
-					$scope.model.test = 'Bollox';
-					$scope.model.test = snapshot.val()['new-professional-site'];
-				})
-			});
+
+			FirebaseFactory.loadAllPosts();
+			//FirebaseFactory.test(function (snapshot) {
+			//	$timeout(function () {
+			//		console.log(snapshot.val()['new-professional-site']);
+			//		$scope.model.test = 'Bollox';
+			//		$scope.model.test = snapshot.val()['new-professional-site'];
+			//	})
+			//});
 		})
 })()

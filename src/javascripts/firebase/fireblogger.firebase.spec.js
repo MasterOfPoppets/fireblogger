@@ -1,3 +1,13 @@
+var snapshot = {
+	posts: [
+		{ 'post-1': {'title': 'test post 1'} },
+		{ 'post-2': {'title': 'test post 2'} }
+	],
+	val: function () {
+		return this.posts;
+	}
+}
+
 describe('factories', function () {
 	describe('FirebaseFactory', function () {
 		var FirebaseFactory, fb;
@@ -16,10 +26,11 @@ describe('factories', function () {
 		})
 
 		it('should load all of the posts', function () {
-			//sinon.stub(fb, 'on').yields({ 'post 1': {'title': 'test post 1'}, 'post 2': {'title': 'test post 2'} });
-			FirebaseFactory.test();
-			//sinon.callsArg(1);
-			//FirebaseFactory.getPosts.length.should.equal(2);
+			sinon.stub(fb, 'on').yields(snapshot);
+
+			FirebaseFactory.loadAllPosts();
+
+			FirebaseFactory.getPosts.length.should.equal(2);
 		})
 	})
 })
