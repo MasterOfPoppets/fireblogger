@@ -22,7 +22,7 @@ describe('factories', function () {
 		})
 
 		it('should be initialised with a model', function () {
-			FirebaseFactory.getPosts.should.be.empty;
+			FirebaseFactory.fbModel.posts.should.be.empty;
 		})
 
 		it('should load all of the posts', function () {
@@ -30,7 +30,7 @@ describe('factories', function () {
 
 			FirebaseFactory.loadAllPosts();
 
-			FirebaseFactory.getPosts.length.should.equal(2);
+			FirebaseFactory.fbModel.posts.length.should.equal(2);
 		})
 	})
 })

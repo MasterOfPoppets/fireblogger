@@ -15,8 +15,10 @@
 
 				loadAllPosts: function () {
 					fb.on('value', function (snapshot){
-						model.posts.unshift(snapshot.val());
-						console.log(model.posts);
+						var posts = snapshot.val()
+						for (var i = 0; i < posts.length; i++) {
+							model.posts.unshift(posts[i])
+						}
 					});
 				}
 			}
