@@ -10,14 +10,15 @@ var snapshot = {
 
 describe('factories', function () {
 	describe('FirebaseFactory', function () {
-		var FirebaseFactory, fb
+		var FirebaseFactory, fb, $timeout
 
 		beforeEach(function () {
 			module('fireblogger.firebase')
 
-			inject(function (_FirebaseFactory_, _fb_) {
+			inject(function (_FirebaseFactory_, _fb_, _$timeout_) {
 				FirebaseFactory = _FirebaseFactory_
 				fb = _fb_
+				$timeout = _$timeout_
 			})
 		})
 
@@ -25,12 +26,15 @@ describe('factories', function () {
 			FirebaseFactory.fbModel.posts.should.be.empty
 		})
 
-		it('should load all of the posts', function () {
+		it('should load all of the posts', function (done) {
 			sinon.stub(fb, 'on').yields(snapshot)
 
 			FirebaseFactory.loadAllPosts(function () {
-				FirebaseFactory.fbModel.posts.length.should.equal(2)
+				FirebaseFactory.fbModel.posts[0].length.should.equal(2)
+				done()
 			})
+
+			$timeout.flush()
 		})
 	})
 })
