@@ -1,21 +1,23 @@
 (function () {
 	'use strict'
 
-	angular.module('fireblogger', ['fireblogger.firebase'])
+	angular.module('fireblogger', ['fireblogger.firebase', 'fireblogger.markdown'])
 
-		.controller('FirebloggerCtrl', function ($scope, $timeout, FirebaseFactory) {
-			$scope.model = {
-				test: 'Hello world',
-				fbModel: FirebaseFactory.fbModel
-			};
+		.directive('fireblogger', function ($timeout, FirebaseFactory) {
+			return {
+				restrict: 'E',
+				scope: true,
+				link: function ($scope) {
+					$scope.model = {
+						test: 'Hello world',
+						fbModel: FirebaseFactory.fbModel
+					}
 
-			FirebaseFactory.loadAllPosts();
-			//FirebaseFactory.test(function (snapshot) {
-			//	$timeout(function () {
-			//		console.log(snapshot.val()['new-professional-site']);
-			//		$scope.model.test = 'Bollox';
-			//		$scope.model.test = snapshot.val()['new-professional-site'];
-			//	})
-			//});
+					FirebaseFactory.loadAllPosts(function () {
+						$scope.post = $scope.model.fbModel.posts[0].post
+						console.log($scope.post)
+					})
+				}
+			}
 		})
 })()
