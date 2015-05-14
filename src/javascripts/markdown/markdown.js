@@ -23,7 +23,6 @@
 					setMarkdownText()
 
 					$scope.$watch('markdownContent', function () {
-						console.log('content changed')
 						setMarkdownText()
 					})
 				}
