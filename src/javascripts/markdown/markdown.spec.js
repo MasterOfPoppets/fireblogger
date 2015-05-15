@@ -3,7 +3,7 @@ describe('directives', function () {
 		var element, $scope, $compile
 
 		beforeEach(function () {
-			module('fireblogger.markdown')
+			module('fireblogger')
 
 			inject(function ($rootScope, _$compile_) {
 				$scope = $rootScope.$new()

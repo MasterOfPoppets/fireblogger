@@ -27,6 +27,7 @@ module.exports = function (grunt) {
 			my_target: {
 				files: {
 					'public/javascripts/fireblogger.min.js': [
+						'src/javascripts/**/*.module.js',
 						'src/javascripts/**/*.js',
 						'!src/javascripts/**/*.spec.js'
 					]

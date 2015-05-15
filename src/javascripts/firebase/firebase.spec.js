@@ -13,7 +13,7 @@ describe('factories', function () {
 		var FirebaseFactory, fb, $timeout
 
 		beforeEach(function () {
-			module('fireblogger.firebase')
+			module('fireblogger')
 
 			inject(function (_FirebaseFactory_, _fb_, _$timeout_) {
 				FirebaseFactory = _FirebaseFactory_

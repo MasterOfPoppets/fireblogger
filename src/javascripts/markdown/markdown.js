@@ -1,8 +1,8 @@
 (function () {
 	'use strict'
 
-	angular.module('fireblogger.markdown', [])
-
+	angular
+		.module('fireblogger')
 		.directive('markdown', function () {
 			return {
 				restrict: 'E',
