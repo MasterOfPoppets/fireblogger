@@ -1,17 +1,42 @@
+markdown pre {
+  background-color: #F5F5F5;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  color: #333;
+  display: block;
+  font-size: 13px;
+  line-height: 1.42857;
+  margin: 0px 0px 10px;
+  padding: 9.5px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+markdown pre code {
+  border-radius: 0px;
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  padding: 0px;
+  white-space: pre-wrap;
+}
 fireblogger {
   display: block;
 }
 fireblogger textarea {
   border: 1px solid #33acfe;
+  box-sizing: border-box;
   display: inline-block;
   height: 200px;
-  width: 45%;
+  padding: 5px;
+  width: 49%;
 }
 fireblogger markdown {
   border: 1px solid #33acfe;
+  box-sizing: border-box;
   display: inline-block;
   float: right;
-  width: 45%;
+  padding: 5px;
+  width: 49%;
 }
 body {
   margin: 0 auto;

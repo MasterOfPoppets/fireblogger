@@ -39,22 +39,4 @@
 				}
 			}
 		})
-		.directive('tabTextArea', function () {
-			return {
-				restrict: 'A',
-				link: function ($scope, element) {
-					element.on('keydown', function (event) {
-						if (event.which == 9) {
-							element.val(element.val() + '\t')
-							event.preventDefault()
-							event.stopPropagation()
-						}
-					})
-
-					element.scope().$on('$destroy', function () {
-						element.off('keydown')
-					})
-				}
-			}
-		})
 })()
