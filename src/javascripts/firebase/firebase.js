@@ -19,6 +19,21 @@
 							callback()
 						})
 					})
+				},
+
+				savePost: function (postObj) {
+					fb.child(postObj.url).set(postObj)
+				}
+			}
+		}])
+		.directive('firebaseSave', ['FirebaseFactory', function (FirebaseFactory) {
+			return {
+				restrict: 'A',
+				link: function ($scope) {
+					$scope.save = function () {
+						console.log('saving to firebase')
+						FirebaseFactory.savePost($scope.model)
+					}
 				}
 			}
 		}])
@@ -29,7 +44,9 @@
 				link: function ($scope) {
 					$scope.model = {
 						test: 'Hello world',
-						fbModel: FirebaseFactory.fbModel
+						fbModel: FirebaseFactory.fbModel,
+						url: 'test-url',
+						stub: 'test-stub'
 					}
 
 					FirebaseFactory.loadAllPosts(function () {

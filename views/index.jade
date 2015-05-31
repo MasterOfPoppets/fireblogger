@@ -1,8 +1,10 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to #{title}
+    input(type='text' ng-model='model.title' placeholder='Post title')
+    input(type='text' ng-model='model.url' placeholder='Post URL')
+    input(type='text' ng-model='model.date' placeholder='Post date')
     fireblogger
-        textarea(ng-model="model.newPost" tabable-input)
-        markdown(markdown-content="model.newPost")
+        textarea(ng-model='model.post' tabable-input)
+        markdown(markdown-content='model.post')
+    button(ng-click='save()' firebase-save) Save
