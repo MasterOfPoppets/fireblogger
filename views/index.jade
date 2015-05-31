@@ -5,6 +5,8 @@ block content
     input(type='text' ng-model='model.url' placeholder='Post URL')
     input(type='text' ng-model='model.date' placeholder='Post date')
     fireblogger
-        textarea(ng-model='model.post' tabable-input)
+        .column1
+            textarea(ng-model='model.post' tabable-input)
+            textarea(ng-model='model.stub' tabable-input)
         markdown(markdown-content='model.post')
     button(ng-click='save()' firebase-save) Save

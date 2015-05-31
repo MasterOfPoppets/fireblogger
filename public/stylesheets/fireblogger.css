@@ -22,13 +22,16 @@ markdown pre code {
 fireblogger {
   display: block;
 }
-fireblogger textarea {
+fireblogger .column1 {
+  display: inline-block;
+  width: 49%;
+}
+fireblogger .column1 textarea {
   border: 1px solid orange;
   box-sizing: border-box;
-  display: inline-block;
   height: 200px;
   padding: 5px;
-  width: 49%;
+  width: 100%;
 }
 fireblogger markdown {
   border: 1px solid orange;

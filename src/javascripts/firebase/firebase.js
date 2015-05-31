@@ -46,7 +46,7 @@
 						test: 'Hello world',
 						fbModel: FirebaseFactory.fbModel,
 						url: 'test-url',
-						stub: 'test-stub'
+						stub: 'Stub'
 					}
 
 					FirebaseFactory.loadAllPosts(function () {
