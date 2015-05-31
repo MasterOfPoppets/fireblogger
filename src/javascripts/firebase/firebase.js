@@ -40,7 +40,6 @@
 		.directive('fireblogger', function ($timeout, FirebaseFactory) {
 			return {
 				restrict: 'E',
-				scope: true,
 				link: function ($scope) {
 					$scope.model = {
 						test: 'Hello world',
