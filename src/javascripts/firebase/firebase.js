@@ -22,7 +22,7 @@
 				},
 
 				savePost: function (postObj) {
-					fb.child(postObj.url).set(postObj)
+					fb.child(postObj.url).setWithPriority(postObj)
 				}
 			}
 		}])
