@@ -9,7 +9,9 @@ module.exports = function (grunt) {
 					'angular': 'angular.js'
 				},
 				exclude: [
-					'angular-mocks'
+					'angular-mocks',
+					'angular',
+					'highland'
 				]
 			}
 		},

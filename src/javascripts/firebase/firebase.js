@@ -50,7 +50,7 @@
 
 					FirebaseFactory.loadAllPosts(function () {
 						$scope.post = $scope.model.fbModel.posts[0].post
-						console.log($scope.post)
+						//console.log($scope.post)
 					})
 				}
 			}

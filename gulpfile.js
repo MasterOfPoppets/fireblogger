@@ -3,7 +3,11 @@ var gulp = require('gulp'),
 	less = require('gulp-less'),
 	minifyCss = require('gulp-minify-css'),
 	bower = require('bower'),
-	Test = require('./test')
+	Test = require('./test'),
+	browserify = require('browserify'),
+	source = require('vinyl-source-stream'),
+	buffer = require('vinyl-buffer'),
+	uglify = require('gulp-uglify')
 
 gulp.task('process-less', function () {
 	var myTest = new Test()
@@ -19,6 +23,15 @@ gulp.task('process-less', function () {
 	streams.on('error', console.error.bind(console))
 
 	return streams
+})
+
+gulp.task('reactive', function () {
+	browserify({ entries: 'src/test/reactive.js' })
+		.bundle()
+		.pipe(source('reactive.js'))
+		//.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest('public/javascripts/'))
 })
 
 gulp.task('default', function () {
