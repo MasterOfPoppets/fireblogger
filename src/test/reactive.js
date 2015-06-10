@@ -3,11 +3,13 @@ var _ = require('highland'),
 	createElement = require('virtual-dom/create-element'),
 	events = require('dom-event-stream'),
 	diff = require('virtual-dom/diff'),
-	patch = require('virtual-dom/patch')
+	patch = require('virtual-dom/patch'),
+	marked = require('marked')
 
 var fb = new Firebase('https://fiery-heat-3490.firebaseio.com/').child('blogEntries')
 var tree = h('div')
 var rootNode = createElement(tree)
+document.body.appendChild(rootNode)
 
 function renderPostSummary(post) {
 	return h('article.blog-entry', { id: post.url }, [
@@ -36,31 +38,27 @@ function renderAllPosts(stream) {
 }
 
 function routing() {
+	var routes = _(function (push, next) {
+		push(null, window.location.hash)
+		next(hashChanges)
+	})
+
 	var hashChanges = _(events(window, 'hashchange'))
-		.map(function () {
-			return window.location.hash
+		.map(function (hashEvent) {
+			return hashEvent.target.location.hash
 		})
+
+	routes
 		.map(function (hash) {
-			return hash.substr(1, hash.length)
+			return hash.replace('#', '')
 		})
-
-	var aHashChange = hashChanges
-		.fork()
-
-	var bHashChange = hashChanges
-		.fork()
-
-	aHashChange
-		.filter(function (hash) {
-			return hash
+		.each(function (hash) {
+			if (hash) {
+				newPage(hash)
+			} else {
+				test()
+			}
 		})
-		.each(newPage)
-
-	bHashChange
-		.reject(function (hash) {
-			return hash
-		})
-		.each(test)
 }
 
 function newPage(hash) {
@@ -73,8 +71,6 @@ function newPage(hash) {
 }
 
 function test() {
-	document.body.appendChild(rootNode)
-
 	_('child_added', fb)
 		.map(function (snapshot) {
 			return snapshot.val()
@@ -96,4 +92,3 @@ function test() {
 }
 
 routing()
-test()
