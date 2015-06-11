@@ -27,9 +27,7 @@
     "debug": "~2.1.1",
     "express": "~4.12.0",
     "gulp": "^3.9.0",
-    "jade": "~1.9.2"
-  },
-  "devDependencies": {
+    "jade": "~1.9.2",
     "browserify": "^10.2.4",
     "dom-event-stream": "0.0.1",
     "gulp-less": "^3.0.3",
