@@ -1,94 +1,47 @@
-var _ = require('highland'),
+var Bealach = require('../bealach/bealach'),
+	_ = Bealach._,
 	h = require('virtual-dom/h'),
-	createElement = require('virtual-dom/create-element'),
-	events = require('dom-event-stream'),
-	diff = require('virtual-dom/diff'),
-	patch = require('virtual-dom/patch'),
-	marked = require('marked')
+	marked = require('marked'),
+	blogPost = require('../components/blog.post'),
+	blogSummary = require('../components/blog.summary')
 
 var fb = new Firebase('https://fiery-heat-3490.firebaseio.com/').child('blogEntries')
-var tree = h('div')
-var rootNode = createElement(tree)
-document.body.appendChild(rootNode)
-
-function renderPostSummary(post) {
-	return h('article.blog-entry', { id: post.url }, [
-		h('h2.blog-entry-title', [
-			h('a', { href: '#' + post.url }, post.title)
-		]),
-		h('div.markdown', { innerHTML: marked(post.stub) })
-	])
-}
-
-function renderPost(post) {
-	return h('article.blog-entry', [
-		h('h1.blog-entry-title', post.title),
-		h('span.blog-entry-date', post.date),
-		h('div.markdown', { innerHTML: marked(post.post) })
-	])
-}
 
 function renderAllPosts(stream) {
 	return stream
-		.map(renderPostSummary)
+		.map(blogSummary)
 		.collect()
 		.map(function (allPosts) {
 			return h('div', allPosts)
 		})
 }
 
-function routing() {
-	var routes = _(function (push, next) {
-		push(null, window.location.hash)
-		next(hashChanges)
-	})
+var myExports = {
+	newPage: function (hash) {
+		_('value', fb.child(hash))
+			.map(function (snapshot) {
+				return snapshot.val()
+			})
+			.map(blogPost)
+			.each(Bealach.updateDom)
+	},
 
-	var hashChanges = _(events(window, 'hashchange'))
-		.map(function (hashEvent) {
-			return hashEvent.target.location.hash
-		})
+	test: function () {
+		_('child_added', fb)
+			.map(function (snapshot) {
+				return snapshot.val()
+			})
+			.reduce([], function (acc, curr) {
+				acc.unshift(curr)
 
-	routes
-		.map(function (hash) {
-			return hash.replace('#', '')
-		})
-		.each(function (hash) {
-			if (hash) {
-				newPage(hash)
-			} else {
-				test()
-			}
-		})
+				_(acc)
+					.through(renderAllPosts)
+					.each(Bealach.updateDom)
+
+				return acc
+			})
+			.done()
+	}
 }
 
-function newPage(hash) {
-	fb.child(hash).once('value', function (snapshot) {
-		var newTree = renderPost(snapshot.val())
-		var patches = diff(tree, newTree)
-		rootNode = patch(rootNode, patches)
-		tree = newTree
-	})
-}
-
-function test() {
-	_('child_added', fb)
-		.map(function (snapshot) {
-			return snapshot.val()
-		})
-		.reduce([], function (acc, curr) {
-			acc.unshift(curr)
-
-			_(acc)
-				.through(renderAllPosts)
-				.each(function (newTree) {
-					var patches = diff(tree, newTree)
-					rootNode = patch(rootNode, patches)
-					tree = newTree
-				})
-
-			return acc
-		})
-		.done()
-}
-
-routing()
+module.exports = myExports

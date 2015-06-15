@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 
 gulp.task('process-less', function () {
 	var streams = combiner.obj([
-		gulp.src('src/javascripts/*.less'),
+		gulp.src('src/app.less'),
 		less(),
 		minifyCss(),
 		gulp.dest('public/stylesheets')
@@ -21,16 +21,17 @@ gulp.task('process-less', function () {
 })
 
 gulp.task('reactive', function () {
-	browserify({ entries: 'src/test/reactive.js' })
+	browserify({ entries: 'src/app.js' })
 		.bundle()
-		.pipe(source('reactive.js'))
+		.pipe(source('app.js'))
 		.pipe(buffer())
-		.pipe(uglify())
+		//.pipe(uglify())
 		.pipe(gulp.dest('public/javascripts/'))
 })
 
 gulp.task('default', function () {
 	gulp.watch('src/**/*.less', ['process-less'])
+	gulp.watch('src/**/*.js', ['reactive'])
 })
 
 gulp.task('deploy', ['process-less', 'reactive'])
